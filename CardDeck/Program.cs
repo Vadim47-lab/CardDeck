@@ -3,24 +3,24 @@ using System.Collections.Generic;
 
 namespace CardDeck
 {
-    class Program
+    class Programm
     {
         static void Main(string[] args)
         {
-            Player player = new Player();
-            player.StartGame();
+            Game game = new Game();
+            game.StartGame();
         }
     }
 
-    class Player
+    class Game
     {
-        private readonly Deck _deck = new Deck();
-        private readonly List<Сard> _card;
+        private readonly Deck _deck;
+        private readonly Player _player;
 
-        public Player()
+        public Game()
         {
             _deck = new Deck();
-            _card = new List<Сard>();
+            _player = new Player();
         }
 
         public void StartGame()
@@ -41,7 +41,7 @@ namespace CardDeck
                 switch (command)
                 {
                     case "takeCard":
-                        TakeCard();
+                        _player.TakeCard();
                         break;
                     case "showCards":
                         _deck.ShowCards();
@@ -57,8 +57,20 @@ namespace CardDeck
 
             Console.Write("\n Программа База данных игроков завершается.\n");
         }
+    }
 
-        private void TakeCard()
+    class Player
+    {
+        private readonly Deck _deck;
+        private readonly List<Сard> _card;
+
+        public Player()
+        {
+            _deck = new Deck();
+            _card = new List<Сard>();
+        }
+
+        public void TakeCard()
         {
             if (_card.Count != _deck.NumberCards)
             {
@@ -132,6 +144,7 @@ namespace CardDeck
         public void ShowInfo()
         {
             Add();
+            NumberCards = 10;
             Console.WriteLine(" Всего карт в колоде cards.Count = " + _cards.Count + ". Нужное количесто карт, которые нужно взять тебе _numberCards = " + NumberCards + ".");
         }
 
