@@ -1,0 +1,14 @@
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\obj\Debug\netcoreapp3.1\CardDeck.csproj.AssemblyReference.cache
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\obj\Debug\netcoreapp3.1\CardDeck.GeneratedMSBuildEditorConfig.editorconfig
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\obj\Debug\netcoreapp3.1\CardDeck.AssemblyInfoInputs.cache
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\obj\Debug\netcoreapp3.1\CardDeck.AssemblyInfo.cs
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\obj\Debug\netcoreapp3.1\CardDeck.csproj.CoreCompileInputs.cache
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\bin\Debug\netcoreapp3.1\CardDeck.exe
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\bin\Debug\netcoreapp3.1\CardDeck.deps.json
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\bin\Debug\netcoreapp3.1\CardDeck.runtimeconfig.json
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\bin\Debug\netcoreapp3.1\CardDeck.runtimeconfig.dev.json
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\bin\Debug\netcoreapp3.1\CardDeck.dll
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\bin\Debug\netcoreapp3.1\CardDeck.pdb
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\obj\Debug\netcoreapp3.1\CardDeck.dll
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\obj\Debug\netcoreapp3.1\CardDeck.pdb
+C:\Junior\Курс С# - проекты по С# 2 часть\CardDeck\CardDeck\obj\Debug\netcoreapp3.1\CardDeck.genruntimeconfig.cache
