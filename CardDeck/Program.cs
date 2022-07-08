@@ -241,7 +241,7 @@ namespace CardDeck
             for (int i = number; i == _cards.Count;)
             {
                 _transformCards.Add(_cards[number]);
-                _transformCards.RemoveAt(number);
+                _cards.RemoveAt(number);
                 return _transformCards;
             }
 
