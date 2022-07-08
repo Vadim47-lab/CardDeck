@@ -162,22 +162,32 @@ namespace CardDeck
 
         internal void TakeCard(List<Сard> сard)
         {
+            int amountCards = 0;
+
             _cards.AddRange(сard);
-            Console.Write("\n Карта добавлена в ваш список карт!\n");
+
+            if (_cards.Count == amountCards)
+            {
+                Console.Write("\n Карта не добавлена!\n");
+            }
+            else
+            {
+                Console.Write("\n Карта добавлена в ваш список карт!\n");
+            }
         }
     }
 
     class Deck
     {
         private readonly List<Сard> _cards;
-        private readonly List<Сard> _transformCards;
+        private readonly List<Сard> _transferCards;
 
         public int NumberCards { get; private set; }
 
         public Deck()
         {
             _cards = new List<Сard>();
-            _transformCards = new List<Сard>();
+            _transferCards = new List<Сard>();
         }
 
         public void Add()
@@ -238,14 +248,13 @@ namespace CardDeck
 
         public List<Сard> GiveCard(int number)
         {
-            for (int i = number; i == _cards.Count;)
+            for (int i = 0; i < number; i++)
             {
-                _transformCards.Add(_cards[number]);
-                _cards.RemoveAt(number);
-                return _transformCards;
+                _transferCards.Add(_cards[0]);
+                _cards.RemoveAt(0);
             }
 
-            return _transformCards;
+            return _transferCards;
         }
     }
 
