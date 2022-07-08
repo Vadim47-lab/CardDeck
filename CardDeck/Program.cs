@@ -76,7 +76,7 @@ namespace CardDeck
 
             if (_player.NumberCards != _deck.NumberCards)
             {
-                Console.Write("\n Введите номер карты, чтобы ее взять: ");
+                Console.Write("\n Введите номер карты, чтобы их взять: ");
                 number = Convert.ToInt32(Console.ReadLine());
 
                 _deck.GiveCard(number);
@@ -172,7 +172,7 @@ namespace CardDeck
             }
             else
             {
-                Console.Write("\n Карта добавлена в ваш список карт!\n");
+                Console.Write("\n Карта(ы) добавлена(ы) в ваш список карт!\n");
             }
         }
     }
@@ -180,14 +180,12 @@ namespace CardDeck
     class Deck
     {
         private readonly List<Сard> _cards;
-        private readonly List<Сard> _transferCards;
 
         public int NumberCards { get; private set; }
 
         public Deck()
         {
             _cards = new List<Сard>();
-            _transferCards = new List<Сard>();
         }
 
         public void Add()
@@ -248,13 +246,15 @@ namespace CardDeck
 
         public List<Сard> GiveCard(int number)
         {
+            List<Сard> transferCards = new List<Сard>(); ;
+
             for (int i = 0; i < number; i++)
             {
-                _transferCards.Add(_cards[0]);
+                transferCards.Add(_cards[0]);
                 _cards.RemoveAt(0);
             }
 
-            return _transferCards;
+            return transferCards;
         }
     }
 
