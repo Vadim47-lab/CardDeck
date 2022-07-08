@@ -76,7 +76,7 @@ namespace CardDeck
 
             if (_player.NumberCards != _deck.NumberCards)
             {
-                Console.Write("\n Введите номер карты, чтобы их взять: ");
+                Console.Write("\n Введите номер(а) карт(ы), чтобы их взять: ");
                 number = Convert.ToInt32(Console.ReadLine());
 
                 _deck.GiveCard(number);
