@@ -40,7 +40,8 @@ namespace CardDeck
                 _deck.Add();
                 _deck.ShowInfo();
 
-                Console.Write("\n Команды:\n exit - выход из приложения,\n takeCard - взять карточку,\n showCards - посмотреть свои карты.\n\n");
+                Console.Write("\n Команды:\n takeCard - взять карточку,\n finishTakeCard - закончить брать карты в свою колоду,\n showMyCards - посмотреть свою колоду карт,\n showAllCards - " +
+                "посмотреть все карты в общей колоде,\n exit - выход из приложения,\n\n");
 
                 Console.Write("\n Введите команду: ");
                 command = Console.ReadLine();
