@@ -56,7 +56,7 @@ namespace CardDeck
                         _player.ShowCards();
                         break;
                     case "all":
-                        ViewAllCards(ref seeAllСards);
+                        ViewAllCards(seeAllСards);
                         break;
                     case "exit":
                         break;
@@ -72,15 +72,17 @@ namespace CardDeck
 
         private void TakeCard(ref bool seeAllСards)
         {
-            int number;
-
             if (_player.NumberCards != _deck.NumberCards)
             {
                 Console.Write("\n Введите номер карт(ы), чтобы их взять: ");
-                number = Convert.ToInt32(Console.ReadLine());
-
-                _deck.GiveCard(number);
-                _player.TakeCard(_deck.GiveCard(number));
+                if (!int.TryParse(Console.ReadLine(), out var number))
+                { 
+                    Console.Write("\n Ошибка ввода. Введено не число.\n");
+                }
+                else
+                {
+                    _player.TakeCard(_deck.GiveCard(number));
+                }
             }
             else
             {
@@ -116,7 +118,7 @@ namespace CardDeck
             }
         }
 
-        private void ViewAllCards(ref bool seeAllСards)
+        private void ViewAllCards(bool seeAllСards)
         {
             if (seeAllСards == true)
             {
