@@ -14,11 +14,15 @@ namespace CardDeck
 
     class Game
     {
+        private readonly List<Сard> _card;
+        private readonly List<Сard> _cards;
         private readonly Deck _deck;
         private readonly Player _player;
 
         public Game()
         {
+            _card = new List<Сard>();
+            _cards = new List<Сard>();
             _deck = new Deck();
             _player = new Player();
         }
@@ -74,14 +78,6 @@ namespace CardDeck
 
     class Player
     {
-        private readonly List<Сard> _card; 
-        private readonly Game _game;
-
-        public Player()
-        {
-            _card = new List<Сard>();
-            _game = new Game();
-        }
 
         public void TakeCard()
         {
@@ -96,14 +92,8 @@ namespace CardDeck
 
     class Deck
     {
-        private readonly List<Сard> _cards;
 
         public int NumberCards { get; private set; }
-
-        public Deck()
-        {
-            _cards = new List<Сard>();
-        }
 
         private void Add()
         {
