@@ -26,12 +26,7 @@ namespace CardDeck
         public void StartGame()
         {
             string command = "";
-            int number;
-            int input;
-            int minAmount = 1;
-            int yes = 1;
-            int no = 2;
-            bool flag = false;
+            bool seeAllСards = false;
 
             _deck.Add();
 
@@ -51,54 +46,17 @@ namespace CardDeck
                 switch (command)
                 {
                     case "take":
-                        if (_player.NumberCards != _deck.NumberCards)
-                        {
-                            Console.Write("\n Введите номер карты, чтобы ее взять: ");
-                            number = Convert.ToInt32(Console.ReadLine());
-
-                            _deck.GiveCard(number);
-                            _player.TakeCard(number, _deck.GiveCard(number));
-                        }
-                        else
-                        {
-                            flag = true;
-                        }
+                        TakeCard(ref seeAllСards);
                         break;
                     case "end":
-                        Console.Write("\n Вы уверены? Введите '1' это значит да, введите '2' - нет: ");
-                        input = Convert.ToInt32(Console.ReadLine());
-                        
-                        if (input == yes)
-                        {
-                            if (_player.NumberCards >= minAmount)
-                            {
-                                flag = true;
-                                Console.Write("\n Теперь вы можете посмотреть все карточки в общей колоде!\n");
-                            }
-                            else if (_player.NumberCards < minAmount)
-                            {
-                                Console.Write("\n Извените! Но вы не взяли ни одной карты в свою колоду!\n");
-                            }
-                        }
-                        else if (input == no)
-                        {
-                            Console.Write("\n Продолжаем играть!\n");
-                        }
-
+                        FinishTakingCards(ref seeAllСards);
                         break;
                     case "my":
                         _player.ShowInfo();
                         _player.ShowCards();
                         break;
                     case "all":
-                        if (flag == true)
-                        {
-                            _deck.ShowCards();
-                        }
-                        else
-                        {
-                            Console.Write("\n Извените! Но вы не взяли достаточное количество карт, нужное вам!\n");
-                        }
+                        ViewAllCards(ref seeAllСards);
                         break;
                     case "exit":
                         break;
@@ -110,6 +68,64 @@ namespace CardDeck
             }
 
             Console.Write("\n Программа База данных игроков завершается.\n");
+        }
+
+        private void TakeCard(ref bool seeAllСards)
+        {
+            int number;
+
+            if (_player.NumberCards != _deck.NumberCards)
+            {
+                Console.Write("\n Введите номер карты, чтобы ее взять: ");
+                number = Convert.ToInt32(Console.ReadLine());
+
+                _deck.GiveCard(number);
+                _player.TakeCard(_deck.GiveCard(number));
+            }
+            else
+            {
+                seeAllСards = true;
+            }
+        }
+
+        private void FinishTakingCards(ref bool seeAllСards)
+        {
+            string input;
+            int minAmount = 1;
+            string yes = "yes";
+            string no = "no";
+
+            Console.Write("\n Вы уверены? Введите 'yes' или 'no': ");
+            input = Console.ReadLine();
+
+            if (input == yes)
+            {
+                if (_player.NumberCards >= minAmount)
+                {
+                    seeAllСards = true;
+                    Console.Write("\n Теперь вы можете посмотреть все карточки в общей колоде!\n");
+                }
+                else if (_player.NumberCards < minAmount)
+                {
+                    Console.Write("\n Извените! Но вы не взяли ни одной карты в свою колоду!\n");
+                }
+            }
+            else if (input == no)
+            {
+                Console.Write("\n Продолжаем играть!\n");
+            }
+        }
+
+        private void ViewAllCards(ref bool seeAllСards)
+        {
+            if (seeAllСards == true)
+            {
+                _deck.ShowCards();
+            }
+            else
+            {
+                Console.Write("\n Извените! Но вы не взяли достаточное количество карт, нужное вам!\n");
+            }
         }
     }
 
@@ -144,9 +160,9 @@ namespace CardDeck
             }
         }
 
-        internal void TakeCard(int number, List<Сard> сards)
+        internal void TakeCard(List<Сard> сard)
         {
-            _cards.Add(сards[number]);
+            _cards.AddRange(сard);
             Console.Write("\n Карта добавлена в ваш список карт!\n");
         }
     }
@@ -154,12 +170,14 @@ namespace CardDeck
     class Deck
     {
         private readonly List<Сard> _cards;
+        private readonly List<Сard> _transformCards;
 
         public int NumberCards { get; private set; }
 
         public Deck()
         {
             _cards = new List<Сard>();
+            _transformCards = new List<Сard>();
         }
 
         public void Add()
@@ -222,12 +240,12 @@ namespace CardDeck
         {
             for (int i = number; i == _cards.Count;)
             {
-                _cards.Add(_cards[number]);
-                _cards.RemoveAt(number);
-                return _cards;
+                _transformCards.Add(_cards[number]);
+                _transformCards.RemoveAt(number);
+                return _transformCards;
             }
 
-            return _cards;
+            return _transformCards;
         }
     }
 
