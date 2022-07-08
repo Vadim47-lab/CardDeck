@@ -27,6 +27,9 @@ namespace CardDeck
         {
             string command = "";
             int number;
+            int input;
+            int yes = 1;
+            bool flag = false;
 
             while (command != "exit")
             {
@@ -52,9 +55,37 @@ namespace CardDeck
                             _deck.GiveCard(number);
                             _player.TakeCard(_cards);
                         }
+                        else
+                        {
+                            flag = true;
+                        }
                         break;
-                    case "showCards":
-                        _deck.ShowCards();
+                    case "finishTakeCard":
+                        Console.Write("\n Вы уверены? Введите '1' это значит да, введите '2' - нет: ");
+                        input = Convert.ToInt32(Console.ReadLine());
+                        
+                        if (input == yes && _player.NumberCards >= yes)
+                        {
+                            flag = true;
+                        }
+                        else
+                        {
+                            Console.Write("\n Извените! Но вы не взяли ни одной карты в свою колоду!");
+                        }
+
+                        break;
+                    case "showMyCards":
+                        _player.ShowCards();
+                        break;
+                    case "showAllCards":
+                        if (flag == true)
+                        {
+                            _deck.ShowCards();
+                        }
+                        else
+                        {
+                            Console.Write("\n Извените! Но вы не взяли достаточное количество карт, нужное вам!");
+                        }
                         break;
                     case "exit":
                         break;
@@ -83,6 +114,16 @@ namespace CardDeck
         public void AddNumberCards()
         {
             NumberCards = _cards.Count;
+        }
+
+        public void ShowCards()
+        {
+            Console.WriteLine("\n Список карт:");
+            for (int i = 0; i < _cards.Count; i++)
+            {
+                Console.Write(" Номер - " + i);
+                _cards[i].ShowDescription();
+            }
         }
 
         public void TakeCard(Сard cards)
