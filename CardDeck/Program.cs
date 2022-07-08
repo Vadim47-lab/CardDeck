@@ -34,6 +34,7 @@ namespace CardDeck
                 "или можете посмотреть сколько карт вам нужно взять). После выводиться вся информация о вытянутых картах.\n\n");
 
                 _player.AddNumberCards();
+                _deck.Add();
                 _deck.ShowInfo();
 
                 Console.Write("\n Команды:\n exit - выход из приложения,\n takeCard - взять карточку,\n showCards - посмотреть свои карты.\n\n");
@@ -101,7 +102,7 @@ namespace CardDeck
             _cards = new List<Сard>();
         }
 
-        private void Add()
+        public void Add()
         {
             Сard card1 = new Сard("Слизь", "Провокация", 1, 1, 2);
             Сard card2 = new Сard("Солдат Златоземья", "Провокация", 1, 1, 2);
@@ -138,12 +139,12 @@ namespace CardDeck
             _cards.Add(card15);
             _cards.Add(card16);
             _cards.Add(card17);
+
+            NumberCards = 10;
         }
 
         public void ShowInfo()
         {
-            Add();
-            NumberCards = 10;
             Console.WriteLine(" Всего карт в колоде cards.Count = " + _cards.Count + ". Нужное количесто карт, которые нужно взять тебе _numberCards = " + NumberCards + ".");
         }
 
