@@ -14,15 +14,11 @@ namespace CardDeck
 
     class Game
     {
-        private readonly List<Сard> _card;
-        private readonly List<Сard> _cards;
         private readonly Deck _deck;
         private readonly Player _player;
 
         public Game()
         {
-            _card = new List<Сard>();
-            _cards = new List<Сard>();
             _deck = new Deck();
             _player = new Player();
         }
@@ -30,12 +26,14 @@ namespace CardDeck
         public void StartGame()
         {
             string command = "";
+            int number;
 
             while (command != "exit")
             {
                 Console.Write("\n Добро пожаловать в игру: Колода карт!\n В данной программе eсть колода с картами. Игрок достает карты, пока не решит, что ему хватит карт (вы можете сами\n решить " +
                 "или можете посмотреть сколько карт вам нужно взять). После выводиться вся информация о вытянутых картах.\n\n");
 
+                _player.AddNumberCards();
                 _deck.ShowInfo();
 
                 Console.Write("\n Команды:\n exit - выход из приложения,\n takeCard - взять карточку,\n showCards - посмотреть свои карты.\n\n");
@@ -45,7 +43,14 @@ namespace CardDeck
                 switch (command)
                 {
                     case "takeCard":
-                        _player.TakeCard();
+                        if (_player.NumberCards != _deck.NumberCards)
+                        {
+                            Console.Write("\n Введите номер карты, чтобы ее взять: ");
+                            number = Convert.ToInt32(Console.ReadLine());
+
+                            _deck.GiveCard(number);
+                            _player.TakeCard(_cards);
+                        }
                         break;
                     case "showCards":
                         _deck.ShowCards();
@@ -61,39 +66,40 @@ namespace CardDeck
 
             Console.Write("\n Программа База данных игроков завершается.\n");
         }
-
-        public void TakeCard(List<Сard> _card)
-        {
-            if (_card.Count != _deck.NumberCards)
-            {
-                int number;
-
-                Console.Write("\n Введите номер карты, чтобы ее взять: ");
-                number = Convert.ToInt32(Console.ReadLine());
-
-                _deck.GiveCard(number);
-            }
-        }
     }
 
     class Player
     {
+        private readonly List<Сard> _cards;
 
-        public void TakeCard()
+        public int NumberCards { get; private set; }
+
+        public Player()
         {
-            _game.TakeCard(_card);
+            _cards = new List<Сard>();
         }
 
-        public void GiveCard(Сard cards)
+        public void AddNumberCards()
         {
-            _card.Add(cards);
+            NumberCards = _cards.Count;
+        }
+
+        public void TakeCard(Сard cards)
+        {
+            _cards.Add(cards);
         }
     }
 
     class Deck
     {
+        private readonly List<Сard> _cards;
 
         public int NumberCards { get; private set; }
+
+        public Deck()
+        {
+            _cards = new List<Сard>();
+        }
 
         private void Add()
         {
@@ -151,9 +157,9 @@ namespace CardDeck
             }
         }
 
-        public void GiveCard(int number)
+        public List<Сard> GiveCard(int number)
         {
-            _player.GiveCard(_cards[number]);
+            return _cards[number];
         }
     }
 
