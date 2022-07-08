@@ -28,8 +28,12 @@ namespace CardDeck
             string command = "";
             int number;
             int input;
+            int minAmount = 1;
             int yes = 1;
+            int no = 2;
             bool flag = false;
+
+            _deck.Add();
 
             while (command != "exit")
             {
@@ -37,55 +41,63 @@ namespace CardDeck
                 "или можете посмотреть сколько карт вам нужно взять). После выводиться вся информация о вытянутых картах.\n\n");
 
                 _player.AddNumberCards();
-                _deck.Add();
                 _deck.ShowInfo();
 
-                Console.Write("\n Команды:\n takeCard - взять карточку,\n finishTakeCard - закончить брать карты в свою колоду,\n showMyCards - посмотреть свою колоду карт,\n showAllCards - " +
-                "посмотреть все карты в общей колоде,\n exit - выход из приложения,\n\n");
+                Console.Write("\n Команды:\n take - взять карточку,\n end - закончить брать карты в свою колоду,\n my - посмотреть свою колоду карт,\n all - посмотреть все карты в общей колоде,\n" +
+                " exit - выход из приложения,\n\n");
 
                 Console.Write("\n Введите команду: ");
                 command = Console.ReadLine();
                 switch (command)
                 {
-                    case "takeCard":
+                    case "take":
                         if (_player.NumberCards != _deck.NumberCards)
                         {
                             Console.Write("\n Введите номер карты, чтобы ее взять: ");
                             number = Convert.ToInt32(Console.ReadLine());
 
                             _deck.GiveCard(number);
-                            _player.TakeCard(_cards);
+                            _player.TakeCard(number, _deck.GiveCard(number));
                         }
                         else
                         {
                             flag = true;
                         }
                         break;
-                    case "finishTakeCard":
+                    case "end":
                         Console.Write("\n Вы уверены? Введите '1' это значит да, введите '2' - нет: ");
                         input = Convert.ToInt32(Console.ReadLine());
                         
-                        if (input == yes && _player.NumberCards >= yes)
+                        if (input == yes)
                         {
-                            flag = true;
+                            if (_player.NumberCards >= minAmount)
+                            {
+                                flag = true;
+                                Console.Write("\n Теперь вы можете посмотреть все карточки в общей колоде!\n");
+                            }
+                            else if (_player.NumberCards < minAmount)
+                            {
+                                Console.Write("\n Извените! Но вы не взяли ни одной карты в свою колоду!\n");
+                            }
                         }
-                        else
+                        else if (input == no)
                         {
-                            Console.Write("\n Извените! Но вы не взяли ни одной карты в свою колоду!");
+                            Console.Write("\n Продолжаем играть!\n");
                         }
 
                         break;
-                    case "showMyCards":
+                    case "my":
+                        _player.ShowInfo();
                         _player.ShowCards();
                         break;
-                    case "showAllCards":
+                    case "all":
                         if (flag == true)
                         {
                             _deck.ShowCards();
                         }
                         else
                         {
-                            Console.Write("\n Извените! Но вы не взяли достаточное количество карт, нужное вам!");
+                            Console.Write("\n Извените! Но вы не взяли достаточное количество карт, нужное вам!\n");
                         }
                         break;
                     case "exit":
@@ -117,6 +129,11 @@ namespace CardDeck
             NumberCards = _cards.Count;
         }
 
+        public void ShowInfo()
+        {
+            Console.WriteLine("\n Всего карт в вашей колоде cards.Count = " + _cards.Count + ".");
+        }
+
         public void ShowCards()
         {
             Console.WriteLine("\n Список карт:");
@@ -127,9 +144,10 @@ namespace CardDeck
             }
         }
 
-        public void TakeCard(Сard cards)
+        internal void TakeCard(int number, List<Сard> сards)
         {
-            _cards.Add(cards);
+            _cards.Add(сards[number]);
+            Console.Write("\n Карта добавлена в ваш список карт!\n");
         }
     }
 
@@ -187,7 +205,7 @@ namespace CardDeck
 
         public void ShowInfo()
         {
-            Console.WriteLine(" Всего карт в колоде cards.Count = " + _cards.Count + ". Нужное количесто карт, которые нужно взять тебе _numberCards = " + NumberCards + ".");
+            Console.WriteLine(" Всего карт в общей колоде cards.Count = " + _cards.Count + ". Нужное количесто карт, которые нужно взять тебе _numberCards = " + NumberCards + ".");
         }
 
         public void ShowCards()
@@ -202,7 +220,14 @@ namespace CardDeck
 
         public List<Сard> GiveCard(int number)
         {
-            return _cards[number];
+            for (int i = number; i == _cards.Count;)
+            {
+                _cards.Add(_cards[number]);
+                _cards.RemoveAt(number);
+                return _cards;
+            }
+
+            return _cards;
         }
     }
 
