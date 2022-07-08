@@ -75,7 +75,7 @@ namespace CardDeck
             if (_player.NumberCards != _deck.NumberCards)
             {
                 Console.Write("\n Введите номер карт(ы), чтобы их взять: ");
-                if (!int.TryParse(Console.ReadLine(), out var number))
+                if (int.TryParse(Console.ReadLine(), out var number) == false)
                 { 
                     Console.Write("\n Ошибка ввода. Введено не число.\n");
                 }
