@@ -57,20 +57,8 @@ namespace CardDeck
 
             Console.Write("\n Программа База данных игроков завершается.\n");
         }
-    }
 
-    class Player
-    {
-        private readonly Deck _deck;
-        private readonly List<Сard> _card;
-
-        public Player()
-        {
-            _deck = new Deck();
-            _card = new List<Сard>();
-        }
-
-        public void TakeCard()
+        public void TakeCard(List<Сard> _card)
         {
             if (_card.Count != _deck.NumberCards)
             {
@@ -82,6 +70,23 @@ namespace CardDeck
                 _deck.GiveCard(number);
             }
         }
+    }
+
+    class Player
+    {
+        private readonly List<Сard> _card; 
+        private readonly Game _game;
+
+        public Player()
+        {
+            _card = new List<Сard>();
+            _game = new Game();
+        }
+
+        public void TakeCard()
+        {
+            _game.TakeCard(_card);
+        }
 
         public void GiveCard(Сard cards)
         {
@@ -92,14 +97,12 @@ namespace CardDeck
     class Deck
     {
         private readonly List<Сard> _cards;
-        private readonly Player _player;
 
         public int NumberCards { get; private set; }
 
         public Deck()
         {
             _cards = new List<Сard>();
-            _player = new Player();
         }
 
         private void Add()
@@ -163,7 +166,6 @@ namespace CardDeck
             _player.GiveCard(_cards[number]);
         }
     }
-
 
     class Сard
     {
